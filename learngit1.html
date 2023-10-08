@@ -1,0 +1,932 @@
+<!--  
+    ***Disclaimer******************************************
+    *                                                     *
+    *                                                     *
+    *                                                     *
+    *                                                     *
+    *                                                     *
+    *  Please do not modify the code                      *
+    *                                                     *
+    *******************************************************
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+    <title>Simple Git Tutorial</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: rgb(182, 255, 233);
+        }
+
+        main {
+            padding-top: 10%;
+            padding-bottom: 10%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        main>* {
+            width: max(50%, 600px);
+        }
+
+        image {
+            display: inline-block;
+        }
+
+        section,
+        article {
+            padding: 20px 50px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 1px rgb(180, 180, 180);
+            background: white;
+            line-height: 1.8;
+        }
+
+        article {
+            margin-top: 20px;
+        }
+
+        /* setting the navbar */
+        .navbar {
+            text-align: center;
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+                'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            z-index: 999;
+            transition: 0.5s top;
+            min-height: 50px;
+        }
+
+        .navbar-hidden {
+            top: -50%;
+        }
+
+        .navbar a {
+            border-radius: 20px;
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 10px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background-color: #f7f7f7;
+            color: #333;
+            border: #ddd;
+            border-radius: 20px;
+            border-collapse: separate;
+        }
+
+        .navbar a.active {
+            background-color: #ddd;
+            color: black;
+            border: #ddd;
+            border-radius: 20px;
+            border-collapse: separate;
+        }
+
+        /* setting the titles */
+        .secondTitles {
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+        }
+
+        /* setting the inline list */
+        .inline {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            list-style-type: none;
+        }
+
+        .inline li {
+            padding: 0 5%;
+        }
+
+        /* setting the code */
+        section div {
+            background-color: #333;
+            color: #f7f7f7;
+            border-radius: 10px;
+            overflow: auto;
+            white-space: pre;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        section div p {
+            margin: -50px 0;
+        }
+
+        /* setting the code */
+        code {
+            color: #f7f7f7;
+            background-color: #333;
+            font-size: 16px;
+            padding-block: 2px;
+            padding-inline: 4px;
+        }
+
+        .introduction {
+            padding: 2% 5%;
+            background-color: #333;
+            color: #f7f7f7;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px 1px rgb(180, 180, 180);
+        }
+
+        .introduction li {
+            margin-bottom: 15px;
+        }
+
+        @media only screen and (max-width: 1630px) {
+            section {
+                padding: 20px 30px;
+                min-width: 648px;
+            }
+
+            section div {
+                position: relative;
+            }
+
+
+            section div code {
+                position: absolute;
+                left: 20px;
+            }
+
+            section div p {
+                position: relative;
+                left: -60px;
+            }
+        }
+
+        @media only screen and (max-width: 750px) {
+            main>* {
+                width: 80%;
+            }
+        }
+
+        @media only screen and (max-width: 690px) {
+            section {
+                min-width: 90%;
+            }
+
+            section div code {
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+
+            <a href="#install">Git Installation</a>
+            <a href="#config">Git Configuration</a>
+            <a href="#init">Git Init</a>
+            <a href="#clone">Git Clone</a>
+            <a href="#add">Git Add</a>
+            <a href="#commit">Git Commit</a>
+            <a href="#reset">Git Reset</a>
+            <a href="#push">Git Push</a>
+            <a href="#pull">Git Pull</a>
+
+        </nav>
+    </header>
+
+    <main>
+        <!-- A Brief Introduction -->
+        <img src="assets/image.png" alt="git" class="git-logo" width="100%">
+        <div class="introduction">
+            <h3>Working with Git and GitHub is often an essential part of your daily programming tasks. In many cases,
+                you'll want both a local Git repository and a remote GitHub repository for a project.</h3>
+            <ul>
+                <li>With the local repository, you work on your own copy of the project.
+                <li>You make and test changes independently before pushing those changes to the remote repository for
+                    others to review and merge.</li>
+                </li>
+                <li>
+                    You use the remote repository for offsite storage and to share the project with others.
+                </li>
+            </ul>
+        </div>
+        <!--      ############################################################################################-->
+        <!-- i am thinking to ommit this image -->
+
+        <!-- What is Git? -->
+        <article>
+            <h3>What Do Git, GitHub, and Repository Mean?</h3>
+            <p><b>A repository</b>, or "repo" for short, stores and tracks the versions of your project files. As you
+                make changes to those files, you commit (or copy) those files into the repository for safekeeping. The
+                repository keeps a list of all your committed changes, called a commit history.
+
+                Git is a popular and widely used <b><em>version control system</em></b> for creating and working with
+                repositories. It runs locally on your computer. You can download, install, and use Git on any platform
+                without any cost or fees. With Git, you create a local repository in your project's working folder and
+                Git stores the commit history for the files in that folder.</p>
+        </article>
+        <!--      ############################################################################################-->
+        <!-- Git Installation -->
+        <section id="install">
+            <h2 class="secondTitles">Git Installation</h2>
+            <p>For Git installation on Linux, macOS, and Windows, please follow the platform-specific instructions
+                below:</p>
+
+            <h3>Linux:</h3>
+            <p>Install Git on Debian-based systems like Ubuntu:</p>
+            <div>
+                <code>$ sudo apt-get update</code>
+                <code>$ sudo apt-get install git</code>
+            </div>
+
+            <h3>macOS:</h3>
+            <p>Install Git using Homebrew:</p>
+            <div>
+                <code>$ brew install git</code>
+            </div>
+
+            <h3>Windows:</h3>
+            <p>Download and install Git from <a href="https://git-scm.com/download/win" target="_blank">git-scm.com</a>.
+                After installation, verify with:</p>
+            <div>
+                <code>$ git --version</code>
+            </div>
+        </section>
+        <!--      ############################################################################################-->
+        <!-- Git Configuration -->
+        <section id="config">
+            <h2 class="secondTitles">Git Configuration</h2>
+            <p>If you're new to Git, configuring your identity is an essential step. This helps Git attribute your
+                commits correctly. Follow these steps:</p>
+            <ol>
+                <li>Open a terminal or command prompt.</li>
+                <li>Set your name using the following command:</li>
+                <div>
+                    <code>$ git config --global user.name "Your Name"</code>
+                </div>
+                <li>Set your email address using the following command:</li>
+                <div>
+                    <code>$ git config --global user.email "youremail@example.com"</code>
+                </div>
+            </ol>
+            <p>These configurations are global, applying to all your Git projects. You can also set project-specific
+                configurations by omitting the "--global" flag.</p>
+        </section>
+        <!--      ############################################################################################-->
+        <!-- Git Init -->
+        <section id="init">
+            <h2 class="secondTitles">Git Init</h2>
+            <p>If you have a directory (folder) and you want to use git with it. Follow these steps:</p>
+            <ol>
+                <li>Navigate to your directory.</li>
+                <li>Open the terminal.</li>
+                <li>Run <code>git init</code> and that's it.</li>
+            </ol>
+            <p>
+                Now, if you look back at the directory and enable hidden files to become visible (ctrl + h on linux),
+                you'll see a folder called <code>.git</code> which means that this folder is now a git repository and
+                you're ready to go!
+                <br>
+                You don't have to worry about that hidden folder. Basically, Git will use it to store information about
+                your repo but you don't need to touch it.
+                <br>
+                If you remove it, the folder is no longer a git repo and all commits will be removed.
+            </p>
+        </section>
+        <!--      ############################################################################################-->
+        <!-- Git Clone -->
+        <section id="clone">
+            <h2 class="secondTitles">Git Clone</h2>
+            <p>If you're new to Git and want to start working on an existing project hosted on a remote repository
+                (e.g., GitHub), you'll need to use the "Git Clone" command. This command allows you to make a local copy
+                of the entire project on your computer. Here's how to do it:</p>
+            <ol>
+                <li>Open a terminal or command prompt.</li>
+                <li>Decide where you want to store the local copy of the project on your computer. Navigate to the
+                    directory where you want the project to be saved using the terminal. For example:</li>
+                <div>
+                    <code>$ cd /path/to/your/preferred/directory</code>
+                </div>
+                <li>Now, you're ready to clone the project. You need to know the URL of the remote repository. If you're
+                    using GitHub, you can find it on the repository's page. Run the following command, replacing
+                    "repository-url" with the actual URL:</li>
+                <div>
+                    <code>$ git clone repository-url</code>
+                </div>
+            </ol>
+            <p>Here's what each step does:</p>
+            <ul>
+                <li>The "Git Clone" command tells Git to create a local copy of the remote repository.</li>
+                <li>You navigate to the directory where you want the project to be saved to ensure that the clone is
+                    placed in the right location on your computer.</li>
+                <li>By providing the repository's URL, you specify which project you want to clone. Git will download
+                    all the project files, history, and branches to your computer.</li>
+            </ul>
+            <p>Once the cloning process is complete, you'll have a local copy of the project on your computer, and you
+                can start working on it. You can make changes, create branches, and later use "Git Push" to send your
+                changes back to the remote repository for collaboration with others.</p>
+            <p>Remember that "Git Clone" is typically used when you want to start working on a project that already
+                exists. It's a great way to get involved in open-source projects, collaborate with a team, or simply
+                work on your own projects.</p>
+        </section>
+        <!--      ############################################################################################-->
+        <!-- Git Add -->
+        <section id="add">
+            <h2 class="secondTitles">Git Add</h2>
+            <p>
+                <code>git add</code> is one of the most important commands. Let's understand how it works.
+                <br>
+                First, let's create a new Git repo using <code>git init</code> command.
+                <br>
+                I'll create a new git repo called <code>example</code> in desktop (I'm using Linux, but Git commands
+                should be the same on any OS):
+                <br>
+            </p>
+            <div>
+                <code>$ mkdir example</code>
+                <code>$ cd example</code>
+                <code>$ git init</code>
+            </div>
+            <p>
+                Now, Run:
+            </p>
+            <div>
+                <code>$ git status</code>
+            </div>
+            <p>
+                You should get an output similar to this:
+            </p>
+            <div>
+                <p>
+                    On branch main
+
+                    No commits yet
+
+                    nothing to commit (create/copy files and use "git add" to track)
+                </p>
+            </div>
+            <p>
+                Let's create a new file called <code>file1.txt</code>:
+            </p>
+            <div>
+                <code>$ touch file1.txt</code>
+            </div>
+            <p>
+                Run in your terminal:
+            </p>
+            <div>
+                <code>$ git status</code>
+            </div>
+            <p>
+                You should get something like that:
+            </p>
+            <div>
+                <p>
+                    On branch main
+
+                    No commits yet
+
+                    Untracked files:
+                    (use "git add <file>..." to include in what will be committed)
+                        file1.txt
+
+                        nothing added to commit but untracked files present (use "git add" to track)
+                </p>
+            </div>
+            <p>
+                As you can see, we now have untracked files (well, it's actually just one
+                file) and Git is telling us
+                to use <code>git add</code> command to include an untracked file (or files)
+                and track it.
+                <br>
+                So, let's do that:
+            </p>
+            <div>
+                <code>$ git add file1.txt</code>
+            </div>
+            <p>
+                Run:
+            </p>
+            <div>
+                <code>$ git status</code>
+            </div>
+            <p>
+                Output:
+            </p>
+            <div>
+                <p>
+                    On branch main
+
+                    No commits yet
+
+                    Changes to be committed:
+                    (use "git rm --cached <file>..." to unstage)
+                        new file: file1.txt
+                </p>
+            </div>
+            <p>
+                As you can see, Git is telling us to commit changes now. But
+                hey what did the command
+                <code>git add</code> do?
+                <br>
+                Well basically, it adds the file(s) you pass to it to the
+                <strong>Staging Area</strong>. So our
+                <code>file1.txt</code> is now in the Staging Area (well
+                actually it's a <strong>copy</strong> of the
+                file). But what's the
+                Staging Area?
+            </p>
+            <p>
+                Git uses two important areas to function:
+            </p>
+            <ol>
+                <li><strong>Working Directory</strong> (Also known as
+                    Working Tree).</li>
+                <li><strong>Staging Area</strong> (Also known as Index).
+                </li>
+            </ol>
+            <p>
+                Working Directory is the directory your currently working on
+                (in our case, it is <code>example</code>).
+                Easy, right?
+                <br>
+                <br>
+                Now, let's talk about the Staging Area. You can think of it
+                as a <strong>box</strong>.
+                <br>
+                We know that a box contains some random things like books.
+                In Git, the box contains
+                <strong>files</strong>. So, our box was empty. When we did:
+            </p>
+            <div>
+                <code>$ git add file1.txt</code>
+            </div>
+            <p>
+                We <strong>added a copy</strong> of
+                <code>file1.txt</code> to the box (Staging Area). Ok got
+                it Staging
+                Area is a box that contains copies of files that exist
+                in our Working Directory but what's the point of
+                it?
+            </p>
+            <p>
+                Why do we store things in a box? So, we can <strong>use
+                    them later if we need to!</strong>
+            </p>
+            <p>
+                The same thing applies to Git! We can recover the
+                content (or just some content) of a box and change our
+                Working Directory when needed (For example, when we make
+                a mistake).
+            </p>
+            <p>
+                We can add as many files as we want like this:
+            </p>
+            <div>
+                <code>$ git add file1.txt file2.html ...</code>
+            </div>
+            <p>
+                Or add them all at once:
+            </p>
+            <div>
+                <code>$ git add .</code>
+            </div>
+            <p>
+                Now all we need to do is to
+                <strong>commit</strong> the box and we're done!
+                Read the <a href="#commit">next section</a> to
+                learn how to do so.
+            </p>
+        </section>
+        <!--      ############################################################################################-->
+        <!-- Git Commit -->
+        <section id="commit">
+            <h2 class="secondTitles">Git Commit</h2>
+            <p>
+                Let's continue our Git journey using the <code>example</code> folder we created in <a href="#add">Git
+                    Add</a> section 🤠!</p>
+            <p>
+                As we saw in Git Add section, the command <code>git add</code> is used to <strong>add copies of files in
+                    the Staging Area</strong> (Or a box if that makes sense to you).
+            </p>
+            <p>
+                Imagine that you have some books that you want to store in boxes. You have
+                books about science, physics, math, history....
+            </p>
+            <p>
+                How would you store them? Well obviously, store each book according to its kind (science, math...) in a
+                specific box
+            </p>
+            <p>
+                But what if we just store books randomly without organizing them and after, say, one year I want to read
+                a
+                specific book? Oh no, there are many boxes and you will take so long to find just that one book.
+                However, if
+                we, for example, put a ticket on each box and say this box is for science and this one is for math... it
+                will be easy to find our target!
+            </p>
+            <p>
+                That's exactly what <strong>commmits</strong> are! Basically, tickets that hold messages so we can find
+                our copies of files easily if we need to!
+            </p>
+            <p>
+                Remember that we still have a copy of <code>file1.txt</code> in the Staging Area that we added using
+                <code>git add file1.txt</code>.
+                <br>
+                Now to finish our current box that contains this copy, we need to commit it using
+                <code>git commit</code> command like so:
+            </p>
+            <div>
+                <code>$ git commit -m "Create a new file"</code>
+            </div>
+            <p>
+                You can replace the <strong>message</strong> "Create a new file" with any one you wish like "First
+                commit"
+                but it's best to choose a name depending on the changes you've made (in this case, creating a new
+                file).
+                It's a convention to use a verb in the present simple as the first word like I did.
+            </p>
+            <p>
+                <code>-m</code> is called a <strong>flag</strong>. If you don't specify it, Git will open an editor
+                and
+                you'll
+                be able to
+                choose the message there as well as an optional explanation to why you did these changes.
+            </p>
+            <p>
+                There are many flags you can use with different Git commands but for now, let's not worry about
+                them.
+            </p>
+            <p>
+                Now we have a new box (More correctly, a <strong>commit</strong>) in our <strong>Git
+                    History</strong>
+                (just like your browser's history).
+                <br>
+                Run in your terminal:
+            </p>
+            <div>
+                <code>$ git log</code>
+            </div>
+            <p>
+                You should get an output similar to this:
+            </p>
+            <div>
+                <p>
+                    commit edee7b7362e47751f6ace4507cd2fc1686f57966 (HEAD -> main)
+                    Author: &lt;username&gt; &lt;somegithub@gmail.com&gt;
+                    Date: Thu Oct 5 22:00:16 2023 +0100
+
+                    Add a new file
+                </p>
+            </div>
+            <p>
+                As you can see, this is our new created box. <code>Date</code> is the creation date.
+                <code>Author</code>
+                is the username and github email of the creator (I used fake ones here) that were set using
+                <code>git config</code> command. Also the text
+                <code>edee7b7362e47751f6ace4507cd2fc16</code> is
+                called a <strong>hash</strong>. It's actually what we'll be using and not the message when
+                we want to go
+                back to some
+                specific commit (or a box).
+                <br>
+                <strong>NOTE:</strong> Every commit has a <strong>unique hash</strong> and that's how Git
+                exactly
+                differentiate between them.
+            </p>
+            <p>
+                Ok, Let's practice more:
+                <ol>
+                    <li>Write any text inside <code>file1.txt</code>.</li>
+                    <li><code>git add</code> it.</li>
+                    <li><code>git commit</code> it with a message of "Write some text" or anything.</li>
+                    <li>Now create two new files <code>file2.txt</code> and <code>file3.txt</code>.</li>
+                    <li><code>git add</code> them.</li>
+                    <li><code>git commit</code> with a message of "Create two new files" or whatever using
+                        <code>git add file2.txt file3.txt</code> or both at once: <code>git add .</code>.
+                    </li>
+                    <li>Now <code>git log</code> Git History.</li>
+                </ol>
+            </p>
+            <p>
+                As you can see, Git organizes our work and remembers changes we've made over time so we
+                don't get lost
+                and we can add features safely in our apps without worrying about losing current progress
+                since we can
+                just recover data from old commits.
+            </p>
+        </section>
+        <!--      ############################################################################################-->
+        <!-- Git Reset -->
+        <section id="reset">
+            <h2 class="secondTitles">Git Reset</h2>
+            <p>
+                Let's recap what we have learnt so far:
+            </p>
+            <ol>
+                <li><code>git add</code> is used to add copies of files that were recently created or edited from
+                    Working
+                    Directory to the Staging Area.</li>
+                <li><code>git commit</code> is used to commit (In other words, add to Git History) these changes that
+                    were added to the Staging Area.</li>
+                <li>Remember: first <code>git add</code> and then <code>git commit</code>.</li>
+                <li><code>git log</code> lets us check Git History.</li>
+            </ol>
+            <p>
+                Ok. Now, let's learn a new command: <code>git reset</code>!
+            </p>
+            <p>
+                Let's create a new Git repository called <code>foo</code>:
+            </p>
+            <div>
+                <code>$ git init foo</code>
+                <code>$ cd foo</code>
+            </div>
+            <p>
+                Next, create a new file called hello.txt:
+            </p>
+            <div>
+                <code>$ touch hello.txt</code>
+            </div>
+            <p>
+                Write in the new file (We'll make typos on purpose and let's assume we did not notice it):
+            </p>
+            <div>
+                <code>Hello World! I'm a nw prgramer!</code>
+            </div>
+            <p>
+                Let's add the file to the Index (Staging Area) and commit:
+            </p>
+            <div>
+                <code>$ git add .</code>
+                <code>$ git commit -m "Create hello.txt and write some text in it"</code>
+            </div>
+            <p>
+                Now let's create a new file called <code>bye.txt</code>, add it, and commit the changes:
+            </p>
+            <div>
+                <code>$ touch bye.txt</code>
+                <code>$ git add .</code>
+                <code>$ git commit -m "Create bye.txt"</code>
+            </div>
+            <p>
+                So now your Git History should look like this:
+            </p>
+            <div>
+                <p>
+                    commit 45cdf54583460c091faa106e201e2bc6a1ef99a6 (HEAD -> main)
+                    Author: &lt;username&gt; &lt;somegithub@gmail.com&gt;
+                    Date: Fri Oct 6 10:36:29 2023 +0100
+
+                    Create bye.txt
+
+                    commit ffe5e5ebf54223dcea4dbe661b0256f912bd9350
+                    Author: &lt;username&gt; &lt;somegithub@gmail.com&gt;
+                    Date: Fri Oct 6 10:31:43 2023 +0100
+
+                    Create a file and write some text in it
+                </p>
+            </div>
+            <p>
+                Only at this point, we've realized that we made wrong changes in the first
+                commit!
+                <br>
+                we realized that our <code>hello.txt</code>'s text is not what was supposed to
+                be!
+            </p>
+            <p>
+                Thankfully, Git offers commands to fix this issue. We can, for example, just
+                edit the file and then use
+                <code>git add</code> and <code>git commit</code> with a message of "Fix a typo"
+                or whatever. This is the
+                safe (and recommended) way since it doesn't delete current commits
+            </p>
+            <p>Or we can go the <strong>unsafe way</strong> using something like
+                <code>git reset</code>.
+            </p>
+            <p>This command basically deletes as much commmits as we want! Let's try it:</p>
+            <ol>
+                <li>Run in your terminal:</li>
+                <div>
+                    <code>$ git log</code>
+                </div>
+                <li>Now, look for the commit that holds our changes which is the first one
+                    in our case:</li>
+                <div>
+                    <p>
+                        commit ffe5e5ebf54223dcea4dbe661b0256f912bd9350
+                        Author: &lt;username&gt; &lt;somegithub@gmail.com&gt;
+                        Date: Fri Oct 6 10:31:43 2023 +0100
+
+                        Create a file and write some text in it
+                    </p>
+                </div>
+                <li>Copy that commit's hash. Mine is:
+                    <code>ffe5e5ebf54223dcea4dbe661b0256f912bd9350</code>
+                </li>
+                <li>Run (replace my hash with yours):</li>
+                <div>
+                    <code>$ git reset ffe5e5ebf54223dcea4dbe661b0256f912bd9350</code>
+                </div>
+                <p>
+                    Running this command will <strong>delete every commit</strong>
+                    after this one (In our case, just
+                    "Create bye.txt" commit).
+                </p>
+                <br>
+            </ol>
+            <p>
+                Now if you run <code>git log</code>, you can see "Create bye.txt" commit has
+                been deleted and our old
+                commit is the new <code>HEAD</code> (Don't worry about the <code>HEAD</code> for
+                now, we'll cover it in
+                upcoming lessons).
+            </p>
+            <p>
+                You may have noticed that our Working Directory hasn't changed. That's because
+                we didn't add
+                <code>--hard</code> option, which tells Git to undo the changes we've made after
+                our target commit as if
+                we never made them in the first place. So, in this case, our command is:
+            </p>
+            <div>
+                <code>$ git reset ffe5e5ebf54223dcea4dbe661b0256f912bd9350 --hard</code>
+            </div>
+            <strong>NOTE:</strong> This command <em>won't delete</em> untracked files (an
+            untracked file is a file that
+            was never before added to the Staging Area) because Git doesn't know they exist
+            until you
+            <code>git add</code> them at least one time.
+            <p>
+                If we don't specify any option, the default is <code>--mixed</code>, which
+                tells Git to keep changes
+                <strong>but</strong> clear the Index (Staging Area). That means any file we
+                <code>git add</code>ed will
+                be removed from Index.
+            </p>
+            <p>
+                There's also <code>--soft</code> option, which is like <code>--mixed</code>
+                but doesn't clear the Index.
+                Usually, you would use <code>--hard</code> option more frequently than the
+                other two.
+            </p>
+            <p>
+                Another way to use <code>git reset</code> is:
+            </p>
+            <div>
+                <code>$ git reset HEAD~&lt;number_of_commits_to_remove&gt;</code>
+            </div>
+            <p>
+                So, in our example, we could do:
+            </p>
+            <div>
+                <code>$ git reset HEAD~1 --hard</code>
+            </div>
+            <p>
+                Which does the same thing.
+            </p>
+            <p>
+                Another use for <code>git reset</code> is to remove files from the Index like:
+            </p>
+            <div>
+                <code>$ git reset file1.txt file2.txt ...</code>
+            </div>
+            <p>
+                Or using the "all" syntax:
+            </p>
+            <div>
+                <code>$ git reset .</code>
+            </div>
+            <p>Remember:</p>
+            <ul>
+                <li><code>--hard</code> deletes all changes and clear the Index.
+                </li>
+                <li><code>--mixed</code> keeps changes and clear the Index.</li>
+                <li><code>--soft</code> keeps changes and the Index as they are.
+                </li>
+            </ul>
+            <p>
+                <strong>BIG WARNING</strong>: Never ever <code>git reset</code>
+                commits made by other developers
+                <strong>unless</strong> you let them know you want to do so. That's
+                because, it will cause complex
+                <strong><a target="_blank"
+                        href="https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts">merging
+                        conflicts</a></strong> that can be hard to solve and
+                developers will have hard times looking at
+                Git History since this command deletes commits and that's why
+                it's <em>unsafe</em>. Instead, prefer
+                to use <code>git revert &lt;hash&gt;</code> which is a <em>safe
+                    way</em> to undo changes. It achieves
+                that by undoing them and adding a new commit without affecting any
+                existing commits. If the commits are
+                made by you, then
+                it's perfectly fine to use <code>git reset</code>.
+            </p>
+        </section>
+        <!--      ############################################################################################-->
+
+        <!-- Git Push -->
+        <section id="push">
+            <h2 class="secondTitles">Git Push</h2>
+            <p>After making changes to your local repository and committing them, you'll want to push those changes to a
+                remote repository (e.g., on GitHub). This ensures that your changes are available to others. Follow
+                these steps:</p>
+            <ol>
+                <li>Open a terminal or command prompt.</li>
+                <li>Navigate to your local repository directory using the terminal.</li>
+                <li>Run the following command to push your changes to the remote repository:</li>
+                <div>
+                    <code>$ git push origin branch-name</code>
+                </div>
+            </ol>
+            <p>If you're not sure which branch to push, the default branch is usually named "main." You can omit the
+                branch name, and Git will use "main" by default. This command will upload your changes to the remote
+                repository, making them accessible to your collaborators.</p>
+        </section>
+        <!--      ############################################################################################-->
+
+        <!-- Git Pull -->
+        <section id="pull">
+            <h2 class="secondTitles">Git Pull</h2>
+            <p>If you're collaborating with others and they have made changes to the remote repository, you'll want to
+                update your local repository to include those changes. Use the following steps:</p>
+            <ol>
+                <li>Open a terminal or command prompt.</li>
+                <li>Navigate to your local repository directory using the terminal.</li>
+                <li>Run the following command to pull changes from the remote repository:</li>
+                <div>
+                    <code>$ git pull origin branch-name</code>
+                </div>
+            </ol>
+            <p>If you're not sure which branch to pull, the default branch is usually named "main." You can omit the
+                branch name, and Git will use "main" by default. This command will fetch the latest changes from the
+                remote repository and merge them into your local branch, ensuring your repository is up to date with the
+                latest changes.</p>
+        </section>
+
+        <!--      ############################################################################################-->
+
+        <section id="ressources">
+            <h2>Here are some useful references:</h2>
+            <ul class="inline">
+                <li><a href="https://git-scm.com/doc">git documentation</a></li>
+                <li><a href="https://github.com/progit/progit2/releases/download/2.1.411/progit.pdf">Git Pro Book</a>
+                </li>
+                <li><a href="https://www.atlassian.com/git/tutorials">Atlassian Git Tutorials</a></li>
+            </ul>
+
+        </section>
+
+    </main>
+    <script>
+        const navbar = document.querySelector("nav");
+        const gitLogoImage = document.querySelector(".git-logo")
+
+        addEventListener("scroll", () => {
+            if (navbar.clientHeight >= gitLogoImage.getBoundingClientRect().bottom) {
+                navbar.classList.add("navbar-hidden");
+            } else {
+                navbar.classList.remove("navbar-hidden");
+            }
+        });
+
+        addEventListener("mousemove", (e) => {
+            const y = e.clientY;
+
+            if (y <= navbar.clientHeight) {
+                navbar.classList.remove("navbar-hidden");
+            }
+        });
+    </script>
+</body>
+
+</html>
